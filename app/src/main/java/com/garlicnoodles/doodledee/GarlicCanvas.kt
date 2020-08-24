@@ -184,14 +184,14 @@ class GarlicCanvas(
 
     //Save the drawing here
     @SuppressLint("SdCardPath", "WrongThread")
-    fun saveDrawing(){
+    fun saveDrawing( name : String ){
 
         val cw : ContextWrapper = ContextWrapper(context)
 
         //val dir : File = File(Environment.getDataDirectory().toString() +"/doodledee")
         val resolver = context.contentResolver
         val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, "CuteKitten001")
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 put(MediaStore.MediaColumns.RELATIVE_PATH, "DCIM/PerracoLabs")

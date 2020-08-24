@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var greenSeekBar : SeekBar
     lateinit var blueSeekBar : SeekBar
     lateinit var colorView : View
+
+    lateinit var nameText : EditText
+    lateinit var saveBtn : Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,6 +154,27 @@ class MainActivity : AppCompatActivity() {
         currentAlertDialog.create().show()
     }
 
+    fun showSaveDialog(){
+
+        currentAlertDialog = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.save_dialog, null)
+
+        nameText = view.findViewById(R.id.fileNameText)
+        saveBtn = view.findViewById(R.id.saveNameBtn)
+
+        saveBtn.setOnClickListener {
+
+            if(!nameText.text.isEmpty())
+            {
+                garlicCanvas.saveDrawing(nameText.text.toString())
+            }
+        }
+
+        currentAlertDialog.setView(view)
+        currentAlertDialog.setTitle("Save your drawing")
+        currentAlertDialog.create().show()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -210,8 +235,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.saveImage ->{
-
-                garlicCanvas.saveDrawing()
+                showSaveDialog()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
